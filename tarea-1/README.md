@@ -1,9 +1,5 @@
 # Laboratorio 2 - Sistemas Distribuidos
 
-## Informe
-
-# Pregunta
-
 ## Si se agregara una central que ejecute las mismas funciones que la actualmente implemen-
 tada. ¿Esto beneficiar´ıa o complicar´ıa al proceso?
 
