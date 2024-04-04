@@ -6,15 +6,15 @@ FROM golang:1.19
 WORKDIR /app
 
 # Download Go modules
-COPY go.mod go.sum ./
-RUN go mod download
+# COPY go.mod go.sum ./
+# RUN go mod download
 
 # Copy the source code. Note the slash at the end, as explained in
 # https://docs.docker.com/reference/dockerfile/#copy
 COPY *.go ./
 
 # Build
-RUN CGO_ENABLED=0 GOOS=linux go build -o /docker-gs-ping
+#RUN CGO_ENABLED=0 GOOS=linux go build -o /docker-gs-ping
 
 # Optional:
 # To bind to a TCP port, runtime parameters must be supplied to the docker command.
@@ -22,10 +22,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o /docker-gs-ping
 # the application is going to listen on by default.
 # https://docs.docker.com/reference/dockerfile/#expose
 
-EXPOSE 8001
-EXPOSE 123
-EXPOSE 1234
-EXPOSE 12345
+EXPOSE 8081
 
 # Run
-CMD ["/docker-gs-ping"]
+CMD ["go", "run", "host.go"]
