@@ -1,0 +1,7 @@
+Grupo 2
+Integrantes:
+Leandro Espinoza 201973563-2
+
+Instrucciones de uso:
+ejecutar servidor central con "make docker"
+ejecutar capitanes con "make capitanes"

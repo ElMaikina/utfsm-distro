@@ -18,7 +18,7 @@ func main() {
 
 	addr := net.UDPAddr{
 		Port: 8081,
-		IP:   net.ParseIP("localhost"),
+		IP:   net.ParseIP("172.17.0.2"),
 	}
 
 	conn, err := net.ListenUDP("udp4", &addr)
@@ -26,10 +26,11 @@ func main() {
 		fmt.Println("Error al conectarse al servidor", err)
 	}
 
+	fmt.Println("Escuchando en:", addr)
+
 	msg := make([]byte, 1024)
 	for true {
-		fmt.Println("Escuchando...")
-		
+
 		for key, value := range register {
 			fmt.Println("Planeta", key, ", Tesoros:", value)
 		}
@@ -43,6 +44,7 @@ func main() {
 		data := strings.Split(dataString, ",")
 		planet, captain, bountyStr := data[0], data[1], data[2]
 
+		fmt.Println("Mensaje recibido:", data)
 		fmt.Println("Recepción de solicitud desde el Planeta", planet, "del capitán", captain)
 
 		bounty, _ := strconv.Atoi(bountyStr)
@@ -50,15 +52,13 @@ func main() {
 		register[destiny] += bounty
 
 		fmt.Println("Botín asignado al Planeta", destiny, "cantidad actual:", register[destiny])
-
-		//conn.Close()
 	}
 
 }
 
 func MinPlanet(register map[string]int) string {
-	var minKey string
-	var minValue int
+	minKey := "PA"
+	minValue := register["PA"]
 	for p, b := range register {
 		if b < minValue {
 			minKey = p
@@ -67,3 +67,4 @@ func MinPlanet(register map[string]int) string {
 	}
 	return minKey
 }
+
