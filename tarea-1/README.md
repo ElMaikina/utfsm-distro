@@ -13,6 +13,6 @@ Ejecutar servidor central con "make docker" y ejecutar capitanes con "make capit
 ## Si se agregara una central que ejecute las mismas funciones que la actualmente implemen-
 tada. ¿Esto beneficiar´ıa o complicar´ıa al proceso?
 
-Si, en base a lo que hemos visto en clase, una central extra actuaria como un balanceador
-de carga para los clientes (capitanes), por lo que si uno de estos se ve con mucha carga
-los clientes podrian acceder a la central nueva para acelerar el proceso.
+No, de hecho generarian inconsistencias en los datos, ya que los capitanes estarian
+mandando mensajes entre ambas centrales, las cuales manejarian datos diferentes de
+los botines,
