@@ -13,6 +13,5 @@ Ejecutar servidor central con "make docker" y ejecutar capitanes con "make capit
 ## Si se agregara una central que ejecute las mismas funciones que la actualmente implemen-
 tada. ¿Esto beneficiar´ıa o complicar´ıa al proceso?
 
-No, de hecho generarian inconsistencias en los datos, ya que los capitanes estarian
-mandando mensajes entre ambas centrales, las cuales manejarian datos diferentes de
-los botines,
+No, esto complicaria el proceso y inconsistencias en los datos, ya que los capitanes estarian
+mandando mensajes entre ambas centrales, las cuales manejarian datos diferentes de los botines,
