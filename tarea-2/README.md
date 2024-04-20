@@ -11,12 +11,12 @@
 
 ## Dependencias
 
-´´´
+```
 go get -u google.golang.org/protobuf/reflect/protoreflect
 go get -u google.golang.org/protobuf/runtime/protoimpl
 go get -u reflect
 go get -u sync
-´´´
+```
 
 ## Instrucciones
 
