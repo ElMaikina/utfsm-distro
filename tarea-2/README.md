@@ -9,7 +9,16 @@
 - Instalacion: https://www.youtube.com/watch?v=gbrPMv_GuQY
 - Codigo de Ejemplo: https://www.youtube.com/watch?v=BdzYdN_Zd9Q
 
+## Dependencias
+
+´´´
+go get -u google.golang.org/protobuf/reflect/protoreflect
+go get -u google.golang.org/protobuf/runtime/protoimpl
+go get -u reflect
+go get -u sync
+´´´
+
 ## Instrucciones
 
 Instrucciones de uso:
-Ejecutar servidor central con "protoc --go_out=chat chat.proto"
+Ejecutar servidor central con "protoc --go_out=protocol msg.proto"
