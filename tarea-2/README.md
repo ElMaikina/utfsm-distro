@@ -21,4 +21,8 @@ go get -u sync
 ## Instrucciones
 
 Instrucciones de uso:
-Ejecutar servidor central con "protoc --go_out=protocol msg.proto"
+Ejecutar a través del siguiente comando:
+
+```
+protoc --go_out=protocol --go_opt=paths=source_relative --go-grpc_out=protocol --go-grpc_opt=paths=source_relative msg.proto
+```
