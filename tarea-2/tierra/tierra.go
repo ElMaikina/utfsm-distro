@@ -13,7 +13,7 @@ type myGemaEstrategicaServer struct {
 }
 
 func (s myGemaEstrategicaServer) SolicitarM(context.Context, *pb.Solicitud) (*pb.Respuesta, error) {
-	return &pb.Respuesta{rpta: 1}, nil
+	return &pb.Respuesta{Rpta: 1}, nil
 }
 
 func main() {
