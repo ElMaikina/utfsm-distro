@@ -13,6 +13,7 @@ type myGemaEstrategicaServer struct {
 }
 
 func (s myGemaEstrategicaServer) SolicitarM(context.Context, *pb.Solicitud) (*pb.Respuesta, error) {
+	log.Printf("Llego un mensaje nuevo!")
 	return &pb.Respuesta{Rpta: 1}, nil
 }
 
@@ -32,5 +33,4 @@ func main() {
 	if err != nil {
 		log.Fatalf("ERROR: %s", err)
 	}
-	
 }
