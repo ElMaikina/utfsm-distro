@@ -2,9 +2,9 @@
 // versions:
 // 	protoc-gen-go v1.33.0
 // 	protoc        v5.26.1
-// source: gema.proto
+// source: proto/gema.proto
 
-package tierra_go
+package proto
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -33,7 +33,7 @@ type Solicitud struct {
 func (x *Solicitud) Reset() {
 	*x = Solicitud{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_gema_proto_msgTypes[0]
+		mi := &file_proto_gema_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -46,7 +46,7 @@ func (x *Solicitud) String() string {
 func (*Solicitud) ProtoMessage() {}
 
 func (x *Solicitud) ProtoReflect() protoreflect.Message {
-	mi := &file_gema_proto_msgTypes[0]
+	mi := &file_proto_gema_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -59,7 +59,7 @@ func (x *Solicitud) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Solicitud.ProtoReflect.Descriptor instead.
 func (*Solicitud) Descriptor() ([]byte, []int) {
-	return file_gema_proto_rawDescGZIP(), []int{0}
+	return file_proto_gema_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *Solicitud) GetID() int32 {
@@ -94,7 +94,7 @@ type Respuesta struct {
 func (x *Respuesta) Reset() {
 	*x = Respuesta{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_gema_proto_msgTypes[1]
+		mi := &file_proto_gema_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -107,7 +107,7 @@ func (x *Respuesta) String() string {
 func (*Respuesta) ProtoMessage() {}
 
 func (x *Respuesta) ProtoReflect() protoreflect.Message {
-	mi := &file_gema_proto_msgTypes[1]
+	mi := &file_proto_gema_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -120,7 +120,7 @@ func (x *Respuesta) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Respuesta.ProtoReflect.Descriptor instead.
 func (*Respuesta) Descriptor() ([]byte, []int) {
-	return file_gema_proto_rawDescGZIP(), []int{1}
+	return file_proto_gema_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *Respuesta) GetRpta() int32 {
@@ -130,43 +130,44 @@ func (x *Respuesta) GetRpta() int32 {
 	return 0
 }
 
-var File_gema_proto protoreflect.FileDescriptor
+var File_proto_gema_proto protoreflect.FileDescriptor
 
-var file_gema_proto_rawDesc = []byte{
-	0x0a, 0x0a, 0x67, 0x65, 0x6d, 0x61, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x3b, 0x0a, 0x09,
-	0x53, 0x6f, 0x6c, 0x69, 0x63, 0x69, 0x74, 0x75, 0x64, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x49, 0x44, 0x12, 0x0e, 0x0a, 0x02, 0x41, 0x54, 0x18,
-	0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x41, 0x54, 0x12, 0x0e, 0x0a, 0x02, 0x4d, 0x50, 0x18,
-	0x03, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x4d, 0x50, 0x22, 0x1f, 0x0a, 0x09, 0x52, 0x65, 0x73,
-	0x70, 0x75, 0x65, 0x73, 0x74, 0x61, 0x12, 0x12, 0x0a, 0x04, 0x72, 0x70, 0x74, 0x61, 0x18, 0x01,
-	0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x72, 0x70, 0x74, 0x61, 0x32, 0x37, 0x0a, 0x0f, 0x47, 0x65,
-	0x6d, 0x61, 0x45, 0x73, 0x74, 0x72, 0x61, 0x74, 0x65, 0x67, 0x69, 0x63, 0x61, 0x12, 0x24, 0x0a,
-	0x0a, 0x53, 0x6f, 0x6c, 0x69, 0x63, 0x69, 0x74, 0x61, 0x72, 0x4d, 0x12, 0x0a, 0x2e, 0x53, 0x6f,
-	0x6c, 0x69, 0x63, 0x69, 0x74, 0x75, 0x64, 0x1a, 0x0a, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x75, 0x65,
-	0x73, 0x74, 0x61, 0x42, 0x0b, 0x5a, 0x09, 0x74, 0x69, 0x65, 0x72, 0x72, 0x61, 0x2e, 0x67, 0x6f,
-	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+var file_proto_gema_proto_rawDesc = []byte{
+	0x0a, 0x10, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x67, 0x65, 0x6d, 0x61, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x12, 0x05, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x3b, 0x0a, 0x09, 0x53, 0x6f, 0x6c,
+	0x69, 0x63, 0x69, 0x74, 0x75, 0x64, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x05, 0x52, 0x02, 0x49, 0x44, 0x12, 0x0e, 0x0a, 0x02, 0x41, 0x54, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x05, 0x52, 0x02, 0x41, 0x54, 0x12, 0x0e, 0x0a, 0x02, 0x4d, 0x50, 0x18, 0x03, 0x20, 0x01,
+	0x28, 0x05, 0x52, 0x02, 0x4d, 0x50, 0x22, 0x1f, 0x0a, 0x09, 0x52, 0x65, 0x73, 0x70, 0x75, 0x65,
+	0x73, 0x74, 0x61, 0x12, 0x12, 0x0a, 0x04, 0x72, 0x70, 0x74, 0x61, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x05, 0x52, 0x04, 0x72, 0x70, 0x74, 0x61, 0x32, 0x43, 0x0a, 0x0f, 0x47, 0x65, 0x6d, 0x61, 0x45,
+	0x73, 0x74, 0x72, 0x61, 0x74, 0x65, 0x67, 0x69, 0x63, 0x61, 0x12, 0x30, 0x0a, 0x0a, 0x53, 0x6f,
+	0x6c, 0x69, 0x63, 0x69, 0x74, 0x61, 0x72, 0x4d, 0x12, 0x10, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x2e, 0x53, 0x6f, 0x6c, 0x69, 0x63, 0x69, 0x74, 0x75, 0x64, 0x1a, 0x10, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x75, 0x65, 0x73, 0x74, 0x61, 0x42, 0x08, 0x5a, 0x06,
+	0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
-	file_gema_proto_rawDescOnce sync.Once
-	file_gema_proto_rawDescData = file_gema_proto_rawDesc
+	file_proto_gema_proto_rawDescOnce sync.Once
+	file_proto_gema_proto_rawDescData = file_proto_gema_proto_rawDesc
 )
 
-func file_gema_proto_rawDescGZIP() []byte {
-	file_gema_proto_rawDescOnce.Do(func() {
-		file_gema_proto_rawDescData = protoimpl.X.CompressGZIP(file_gema_proto_rawDescData)
+func file_proto_gema_proto_rawDescGZIP() []byte {
+	file_proto_gema_proto_rawDescOnce.Do(func() {
+		file_proto_gema_proto_rawDescData = protoimpl.X.CompressGZIP(file_proto_gema_proto_rawDescData)
 	})
-	return file_gema_proto_rawDescData
+	return file_proto_gema_proto_rawDescData
 }
 
-var file_gema_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_gema_proto_goTypes = []interface{}{
-	(*Solicitud)(nil), // 0: Solicitud
-	(*Respuesta)(nil), // 1: Respuesta
+var file_proto_gema_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_proto_gema_proto_goTypes = []interface{}{
+	(*Solicitud)(nil), // 0: proto.Solicitud
+	(*Respuesta)(nil), // 1: proto.Respuesta
 }
-var file_gema_proto_depIdxs = []int32{
-	0, // 0: GemaEstrategica.SolicitarM:input_type -> Solicitud
-	1, // 1: GemaEstrategica.SolicitarM:output_type -> Respuesta
+var file_proto_gema_proto_depIdxs = []int32{
+	0, // 0: proto.GemaEstrategica.SolicitarM:input_type -> proto.Solicitud
+	1, // 1: proto.GemaEstrategica.SolicitarM:output_type -> proto.Respuesta
 	1, // [1:2] is the sub-list for method output_type
 	0, // [0:1] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -174,13 +175,13 @@ var file_gema_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_gema_proto_init() }
-func file_gema_proto_init() {
-	if File_gema_proto != nil {
+func init() { file_proto_gema_proto_init() }
+func file_proto_gema_proto_init() {
+	if File_proto_gema_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_gema_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_gema_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Solicitud); i {
 			case 0:
 				return &v.state
@@ -192,7 +193,7 @@ func file_gema_proto_init() {
 				return nil
 			}
 		}
-		file_gema_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_gema_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Respuesta); i {
 			case 0:
 				return &v.state
@@ -209,18 +210,18 @@ func file_gema_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_gema_proto_rawDesc,
+			RawDescriptor: file_proto_gema_proto_rawDesc,
 			NumEnums:      0,
 			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_gema_proto_goTypes,
-		DependencyIndexes: file_gema_proto_depIdxs,
-		MessageInfos:      file_gema_proto_msgTypes,
+		GoTypes:           file_proto_gema_proto_goTypes,
+		DependencyIndexes: file_proto_gema_proto_depIdxs,
+		MessageInfos:      file_proto_gema_proto_msgTypes,
 	}.Build()
-	File_gema_proto = out.File
-	file_gema_proto_rawDesc = nil
-	file_gema_proto_goTypes = nil
-	file_gema_proto_depIdxs = nil
+	File_proto_gema_proto = out.File
+	file_proto_gema_proto_rawDesc = nil
+	file_proto_gema_proto_goTypes = nil
+	file_proto_gema_proto_depIdxs = nil
 }

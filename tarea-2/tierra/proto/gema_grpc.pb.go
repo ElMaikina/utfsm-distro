@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v5.26.1
-// source: gema.proto
+// source: proto/gema.proto
 
-package tierra_go
+package proto
 
 import (
 	context "context"
@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	GemaEstrategica_SolicitarM_FullMethodName = "/GemaEstrategica/SolicitarM"
+	GemaEstrategica_SolicitarM_FullMethodName = "/proto.GemaEstrategica/SolicitarM"
 )
 
 // GemaEstrategicaClient is the client API for GemaEstrategica service.
@@ -96,7 +96,7 @@ func _GemaEstrategica_SolicitarM_Handler(srv interface{}, ctx context.Context, d
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var GemaEstrategica_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "GemaEstrategica",
+	ServiceName: "proto.GemaEstrategica",
 	HandlerType: (*GemaEstrategicaServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -105,5 +105,5 @@ var GemaEstrategica_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "gema.proto",
+	Metadata: "proto/gema.proto",
 }

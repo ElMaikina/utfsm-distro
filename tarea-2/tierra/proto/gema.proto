@@ -1,5 +1,8 @@
 syntax = "proto3";
-option go_package = "tierra.go";
+
+package proto;
+
+option go_package = "/proto";
 
 // Formato de la solicitud: Identificador del equipo (ID),
 // Municion Anti-Tanque (AT) y Municion Pesada

@@ -1,4 +1,4 @@
-module tarea-2
+module main
 
 go 1.22.2
 

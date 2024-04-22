@@ -4,15 +4,16 @@ import (
 	"context"
 	"log"
 	"net"
+	pb "main/proto"
 	"google.golang.org/grpc"
 )
 
 type myGemaEstrategicaServer struct {
-	mustEmbedUnimplementedGemaEstrategicaServer
+	pb.UnimplementedGemaEstrategicaServer
 }
 
-func (s myGemaEstrategicaServer) SolicitarM(context.Context, *Solicitud) (*Respuesta, error) {
-	return Respuesta{ rpta: 6 }, nil
+func (s myGemaEstrategicaServer) SolicitarM(context.Context, *pb.Solicitud) (*pb.Respuesta, error) {
+	return &pb.Respuesta{rpta: 1}, nil
 }
 
 func main() {
@@ -24,7 +25,7 @@ func main() {
 
 	serverRegister := grpc.NewServer()
 	service := &myGemaEstrategicaServer{}
-	RegisterGemaEstrategicaServer(serverRegister, service)
+	pb.RegisterGemaEstrategicaServer(serverRegister, service)
 	
 	err = serverRegister.Serve(lis)
 
