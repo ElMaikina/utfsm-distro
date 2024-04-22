@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v5.26.1
-// source: msg.proto
+// source: gema.proto
 
 package tierra_go
 
@@ -105,5 +105,5 @@ var GemaEstrategica_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "msg.proto",
+	Metadata: "gema.proto",
 }
