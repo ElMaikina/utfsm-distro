@@ -20,9 +20,25 @@ go get -u sync
 
 ## Instrucciones
 
-Instrucciones de uso:
-Ejecutar a través del siguiente comando:
+Para ejecutar mediante _Docker_
 
 ```
-protoc --go_out=protocol --go_opt=paths=source_relative --go-grpc_out=protocol --go-grpc_opt=paths=source_relative msg.proto
+cd tierra
+docker build --tag gemaestrategica .
+docker image ls
+docker run -p 80:8000 gemaestrategica
+```
+
+Para ejecutar de manera local, primero ejecutar en un terminal desde la carpeta del proyecto lo siguiente:
+
+```
+cd tierra
+go run tierra.go
+```
+
+En otro terminal separado (partiendo en la carpeta del proyecto) ejecutar en un terminal lo siguiente:
+
+```
+cd equipo
+go run equipo.go
 ```
