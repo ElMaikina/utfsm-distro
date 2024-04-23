@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "/proto";
+
+// Formato de la solicitud: Identificador del equipo (ID),
+// Municion Anti-Tanque (AT) y Municion Pesada
+
+message Solicitud {
+    int32 ID = 1;
+    int32 AT = 2;
+    int32 MP = 3;
+}
+
+// La respuesta devuelve un código indicado por un entero
+
+message Respuesta {
+    int32 rpta = 1;
+}
+
+// El servicio de mensajería para la Gema Estrategica
+
+service GemaEstrategica {
+    rpc SolicitarM(Solicitud) returns (Respuesta);
+}

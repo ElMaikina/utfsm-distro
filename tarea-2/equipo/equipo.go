@@ -3,22 +3,24 @@ package main
 import (
 	"context"
 	"google.golang.org/grpc"
-	"log"
-	pb "main/proto"
 	"math/rand"
+	"log"
+	"fmt"
 	"time"
+	pb "main/proto"
 )
 
 func main() {
 	// Establece la conexión al servidor gRPC
 	conn, err := grpc.Dial("localhost:8000", grpc.WithInsecure())
+	
 	if err != nil {
-		log.Fatalf("Failed to connect: %v", err)
+		log.Fatalf("ERROR: %v", err)
 	}
 	defer conn.Close()
 
 	// Crea un nuevo cliente gRPC
-	client := pb.NewGreeterClient(conn)
+	client := pb.NewGemaEstrategicaClient(conn)
 
 	time.Sleep(10 * time.Second)
 
@@ -29,18 +31,18 @@ func main() {
 		request := &pb.Solicitud{AT: AT, MP: MP}
 
 		// Llama al método remoto del servidor gRPC
-		response, err := client.solicitarM(context.Background(), request)
+		response, err := client.SolicitarM(context.Background(), request)
 		if err != nil {
-			log.Fatalf("Error calling SolicitarM: %v", err)
+			log.Fatalf("ERROR: %v", err)
 		}
 
 		// Imprime la respuesta del servidor
-		log.Printf("Response from server: %s", response.Message)
-
-		if response.Message == 1 {
-			break
+		if (response.Rpta == 1) {
+			fmt.Printf("Positivo: Solicitando %d AT y %d MP ; Resolucion: -- APROBADA -- ; Conquista Exitosa!, cerrando comunicacion\n", AT, MP)
 		}
-
+		if (response.Rpta == 0) {
+			fmt.Printf("Negativo: Solicitando %d AT y %d MP ; Resolucion: -- DENEGADA -- ; Reintentando en 3 segs...\n", AT, MP)
+		}
+		time.Sleep(3 * time.Second)
 	}
-	time.Sleep(3 * time.Second)
 }
