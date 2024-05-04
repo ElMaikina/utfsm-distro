@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package director;
+
+option go_package = "/proto";
+
+service DirectorCom {
+  rpc SendMessage(Message) returns (Response) {}
+}
+
+message Message { string msg = ''; }
+
+message Response { string res = ''; }

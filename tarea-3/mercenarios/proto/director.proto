@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package director;
+
+option go_package = "/proto";
+
+service CheckMercenaryStatus {
+  rpc CheckStatus(Status) returns (Respuesta) {}
+}
+
+message Status { int32 mercenary = 0; }
+
+message Respuesta { bool rpta = 1; }
+
+service BalanceRequest {
+  rpc AskBalance(RequestBalance) returns (MercenaryBalance)
+}
+
+message RequestBalance { int32 mercenary = 0; }
+
+message MercenaryBalance { int32 money = 0; }
