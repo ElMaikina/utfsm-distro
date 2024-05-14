@@ -6,16 +6,15 @@ import (
 	"log"
 	pb "main/proto"
 	"math/rand"
-	"net"
 	"strconv"
 )
 
 func main() {
-	ip := 1
+	ip := "1"
 
-	conn, err := grpc.Dial(":50051")
+	conn, err := grpc.Dial(":50051", grpc.WithInsecure())
 	if err != nil {
-		log.Fatal("Error:" + err)
+		log.Fatalf("failed to dial: %v", err)
 	}
 	defer conn.Close()
 
@@ -25,29 +24,30 @@ func main() {
 	// 	fmt.Println("Element at index", i, ":", array[i])
 	// }
 
-	response, _ := client.ConfirmReady(context.Background(), &pb.Message{msg: '1', client_ip: ip})
-	if response == "dead" {
+	response, _ := client.ConfirmReady(context.Background(), &pb.Message{Msg: "1", ClientIp: ip})
+	if response.Res == "dead" {
 		return
 	}
 	gun_number := rand.Intn(3) + 1
 	gun := strconv.Itoa(gun_number)
-	response, _ = client.PickGun(context.Background(), &pb.Message{msg: gun, client_ip: ip})
-	if response == "dead" {
+	response, _ = client.PickGun(context.Background(), &pb.Message{Msg: gun, ClientIp: ip})
+	if response.Res == "dead" {
 		return
 	}
 	hallway := rand.Intn(2)
+	hallway_str := ""
 	if hallway == 0 {
-		hallway = 'A'
+		hallway_str = "A"
 	} else {
-		hallway = 'B'
+		hallway_str = "B"
 	}
-	response, _ = client.PickHallway(context.Background(), &pb.Message{msg: hallway, client_ip: gun})
-	if response == "dead" {
+	response, _ = client.PickHallway(context.Background(), &pb.Message{Msg: hallway_str, ClientIp: gun})
+	if response.Res == "dead" {
 		return
 	}
 	number_n := rand.Intn(15) + 1
 	number := strconv.Itoa(number_n)
-	response, _ = client.BossBattle(context.Background(), &pb.Message{msg: number, client_ip: gun})
+	response, _ = client.BossBattle(context.Background(), &pb.Message{Msg: number, ClientIp: gun})
 
 	conn.Close()
 }

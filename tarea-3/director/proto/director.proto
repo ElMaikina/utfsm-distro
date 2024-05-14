@@ -8,11 +8,14 @@ service DirectorCommunication {
   rpc ConfirmReady(Message) returns (Response) {}
   rpc PickGun(Message) returns (Response) {}
   rpc PickHallway(Message) returns (Response) {}
-  rpc PlayerDeath(Message) returns (Response) {}
+  // rpc PlayerDeath(Message) returns (Response) {}
   rpc BossBattle(Message) returns (Response) {}
   rpc AskForAccountBalance(Message) returns (Response) {}
 }
 
-message Message { string msg = 1; string client_ip = 2; }
+message Message {
+  string msg = 1;
+  string client_ip = 2;
+}
 
 message Response { string res = 1; }

@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"google.golang.org/grpc"
 	"log"
 	pb "main/proto"
@@ -10,8 +11,6 @@ import (
 	"strconv"
 )
 
-type server struct{}
-
 var playerCounter int
 var x int
 var y int
@@ -19,78 +18,89 @@ var h int
 var p int
 var hp int
 
+type server struct {
+	pb.UnimplementedDirectorCommunicationServer
+}
+
 func (s *server) ConfirmReady(ctx context.Context, in *pb.Message) (*pb.Response, error) {
 	playerCounter += 1
 	if playerCounter > 8 {
-		playGame()
+		fmt.Println("All players are ready")
 	}
-	return &pb.Response{res: "ok"}, nil
+	return &pb.Response{Res: "ok"}, nil
 }
 
 func (s *server) PickGun(ctx context.Context, in *pb.Message) (*pb.Response, error) {
-	if in.msg == '1' {
+	if in.Msg == "1" {
 		if rand.Intn(x) > 100 {
-			killPlayer(in.client_ip)
-			return &pb.Response{res: "dead"}, nil
+			killPlayer(in.ClientIp)
+			return &pb.Response{Res: "dead"}, nil
 		}
-	} else if in.msg == '2' {
+	} else if in.Msg == "2" {
 		if rand.Intn(y-x) > 100 {
-			killPlayer(in.client_ip)
-			return &pb.Response{res: "dead"}, nil
+			killPlayer(in.ClientIp)
+			return &pb.Response{Res: "dead"}, nil
 		}
 	} else {
 		if rand.Intn(100-y) > 100 {
-			killPlayer(in.client_ip)
-			return &pb.Response{res: "dead"}, nil
+			killPlayer(in.ClientIp)
+			return &pb.Response{Res: "dead"}, nil
 		}
 	}
-	return &pb.Response{res: "next floor"}, nil
+	return &pb.Response{Res: "next floor"}, nil
 }
 
 func (s *server) PickHallway(ctx context.Context, in *pb.Message) (*pb.Response, error) {
-	if in.msg == 'A' {
+	if in.Msg == "A" {
 		if h == 1 {
-			killPlayer(in.client_ip)
-			return &pb.Response{res: "dead"}, nil
+			killPlayer(in.ClientIp)
+			return &pb.Response{Res: "dead"}, nil
 		}
 	} else if h == 0 {
-		killPlayer(in.client_ip)
-		return &pb.Response{res: "dead"}, nil
+		killPlayer(in.ClientIp)
+		return &pb.Response{Res: "dead"}, nil
 	}
-	return &pb.Response{res: "next floor"}, nil
+	return &pb.Response{Res: "next floor"}, nil
 }
 
 func (s *server) BossBattle(ctx context.Context, in *pb.Message) (*pb.Response, error) {
-	number, _ := strconv.Atoi(in.msg)
+	number, _ := strconv.Atoi(in.Msg)
 	if number == p {
 		hp = -1
 	}
 	if hp == 0 {
-		return &pb.Response{res: "boss dead"}, nil
+		return &pb.Response{Res: "boss dead"}, nil
 	}
-	return &pb.Response{res: "boss not dead"}, nil
+	return &pb.Response{Res: "boss not dead"}, nil
 }
 
 func (s *server) AskForAccountBalance(ctx context.Context, in *pb.Message) (*pb.Response, error) {
 	// TODO:
-	return &pb.Response{res: ""}, nil
+	return &pb.Response{Res: ""}, nil
 }
 
 func main() {
 	playerCounter = 0
+	fmt.Print("Starting server...\n")
+	StartServer()
+	PlayGame()
+}
+
+func StartServer() {
 	listener, err := net.Listen("tcp", ":50051")
 	if err != nil {
 		log.Fatalf("Error al crear servidor GRPC en la dirección %s: %s", ":50051", err)
 	}
-	grpcServer := grpc.newServer()
-	pb.RegisterDirectorCommunicationService(grpcServer, &server{})
+	grpcServer := grpc.NewServer()
+	service := &server{}
+	pb.RegisterDirectorCommunicationServer(grpcServer, service)
 	log.Println("Server listening on port 50051")
 	if err := grpcServer.Serve(listener); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
 }
 
-func playGame() {
+func PlayGame() {
 	piso1()
 	piso2()
 	piso3()
@@ -110,6 +120,7 @@ func piso3() {
 	hp = 2
 }
 
-func killPlayer(ip int) {
+func killPlayer(ip string) {
 	// TODO:
+	fmt.Print("Player " + ip + " has died.")
 }

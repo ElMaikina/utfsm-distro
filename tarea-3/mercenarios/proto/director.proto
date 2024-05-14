@@ -4,18 +4,18 @@ package director;
 
 option go_package = "/proto";
 
-service CheckMercenaryStatus {
-  rpc CheckStatus(Status) returns (Respuesta) {}
+service DirectorCommunication {
+  rpc ConfirmReady(Message) returns (Response) {}
+  rpc PickGun(Message) returns (Response) {}
+  rpc PickHallway(Message) returns (Response) {}
+  // rpc PlayerDeath(Message) returns (Response) {}
+  rpc BossBattle(Message) returns (Response) {}
+  rpc AskForAccountBalance(Message) returns (Response) {}
 }
 
-message Status { int32 mercenary = 0; }
-
-message Respuesta { bool rpta = 1; }
-
-service BalanceRequest {
-  rpc AskBalance(RequestBalance) returns (MercenaryBalance)
+message Message {
+  string msg = 1;
+  string client_ip = 2;
 }
 
-message RequestBalance { int32 mercenary = 0; }
-
-message MercenaryBalance { int32 money = 0; }
+message Response { string res = 1; }
