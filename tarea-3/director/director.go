@@ -106,7 +106,7 @@ func piso2() {
 }
 
 func piso3() {
-	p = rand.Intn(15)
+	p = rand.Intn(15) + 1
 	hp = 2
 }
 
