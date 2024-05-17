@@ -31,6 +31,7 @@ func (s *server) ConfirmReady(ctx context.Context, in *pb.Message) (*pb.Response
 }
 
 func (s *server) PickGun(ctx context.Context, in *pb.Message) (*pb.Response, error) {
+	SendDecisionToNameNode(in.ClientIp, in.Msg, "1")
 	if in.Msg == "1" {
 		if rand.Intn(x) > 100 {
 			killPlayer(in.ClientIp)
@@ -51,6 +52,7 @@ func (s *server) PickGun(ctx context.Context, in *pb.Message) (*pb.Response, err
 }
 
 func (s *server) PickHallway(ctx context.Context, in *pb.Message) (*pb.Response, error) {
+	SendDecisionToNameNode(in.ClientIp, in.Msg, "2")
 	if in.Msg == "A" {
 		if h == 1 {
 			killPlayer(in.ClientIp)
@@ -64,6 +66,7 @@ func (s *server) PickHallway(ctx context.Context, in *pb.Message) (*pb.Response,
 }
 
 func (s *server) BossBattle(ctx context.Context, in *pb.Message) (*pb.Response, error) {
+	SendDecisionToNameNode(in.ClientIp, in.Msg, "3")
 	number, _ := strconv.Atoi(in.Msg)
 	if number == p {
 		hp = -1
@@ -82,8 +85,8 @@ func (s *server) AskForAccountBalance(ctx context.Context, in *pb.Message) (*pb.
 func main() {
 	playerCounter = 0
 	fmt.Print("Starting server...\n")
-	StartServer()
 	PlayGame()
+	StartServer()
 }
 
 func StartServer() {
@@ -120,7 +123,22 @@ func piso3() {
 	hp = 2
 }
 
+func SendDecisionToNameNode(ip string, decision string, floor string) {
+
+	conn, err := grpc.Dial(":50052", grpc.WithInsecure())
+	if err != nil {
+		log.Fatalf("failed to dial: %v", err)
+	}
+	defer conn.Close()
+
+	client := pb.NewNodesCommunicationClient(conn)
+
+	client.NotifyDecision(context.Background(), &pb.Decision{Option: decision, ClientIp: ip, Floor: floor})
+
+	conn.Close()
+}
+
 func killPlayer(ip string) {
 	// TODO:
-	fmt.Print("Player " + ip + " has died.")
+	fmt.Println("Player " + ip + " has died.")
 }

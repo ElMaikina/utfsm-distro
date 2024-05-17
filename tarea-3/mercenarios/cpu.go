@@ -20,10 +20,6 @@ func main() {
 
 	client := pb.NewDirectorCommunicationClient(conn)
 
-	// for i := 0; i < len(array); i++ {
-	// 	fmt.Println("Element at index", i, ":", array[i])
-	// }
-
 	response, _ := client.ConfirmReady(context.Background(), &pb.Message{Msg: "1", ClientIp: ip})
 	if response.Res == "dead" {
 		return

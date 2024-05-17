@@ -20,7 +20,6 @@ type DirectorCommunicationClient interface {
 	ConfirmReady(ctx context.Context, in *Message, opts ...grpc.CallOption) (*Response, error)
 	PickGun(ctx context.Context, in *Message, opts ...grpc.CallOption) (*Response, error)
 	PickHallway(ctx context.Context, in *Message, opts ...grpc.CallOption) (*Response, error)
-	// rpc PlayerDeath(Message) returns (Response) {}
 	BossBattle(ctx context.Context, in *Message, opts ...grpc.CallOption) (*Response, error)
 	AskForAccountBalance(ctx context.Context, in *Message, opts ...grpc.CallOption) (*Response, error)
 }
@@ -85,7 +84,6 @@ type DirectorCommunicationServer interface {
 	ConfirmReady(context.Context, *Message) (*Response, error)
 	PickGun(context.Context, *Message) (*Response, error)
 	PickHallway(context.Context, *Message) (*Response, error)
-	// rpc PlayerDeath(Message) returns (Response) {}
 	BossBattle(context.Context, *Message) (*Response, error)
 	AskForAccountBalance(context.Context, *Message) (*Response, error)
 	mustEmbedUnimplementedDirectorCommunicationServer()
@@ -236,6 +234,89 @@ var _DirectorCommunication_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AskForAccountBalance",
 			Handler:    _DirectorCommunication_AskForAccountBalance_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "proto/director.proto",
+}
+
+// NodesCommunicationClient is the client API for NodesCommunication service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type NodesCommunicationClient interface {
+	NotifyDecision(ctx context.Context, in *Decision, opts ...grpc.CallOption) (*Response, error)
+}
+
+type nodesCommunicationClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewNodesCommunicationClient(cc grpc.ClientConnInterface) NodesCommunicationClient {
+	return &nodesCommunicationClient{cc}
+}
+
+func (c *nodesCommunicationClient) NotifyDecision(ctx context.Context, in *Decision, opts ...grpc.CallOption) (*Response, error) {
+	out := new(Response)
+	err := c.cc.Invoke(ctx, "/director.NodesCommunication/NotifyDecision", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// NodesCommunicationServer is the server API for NodesCommunication service.
+// All implementations must embed UnimplementedNodesCommunicationServer
+// for forward compatibility
+type NodesCommunicationServer interface {
+	NotifyDecision(context.Context, *Decision) (*Response, error)
+	mustEmbedUnimplementedNodesCommunicationServer()
+}
+
+// UnimplementedNodesCommunicationServer must be embedded to have forward compatible implementations.
+type UnimplementedNodesCommunicationServer struct {
+}
+
+func (UnimplementedNodesCommunicationServer) NotifyDecision(context.Context, *Decision) (*Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method NotifyDecision not implemented")
+}
+func (UnimplementedNodesCommunicationServer) mustEmbedUnimplementedNodesCommunicationServer() {}
+
+// UnsafeNodesCommunicationServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to NodesCommunicationServer will
+// result in compilation errors.
+type UnsafeNodesCommunicationServer interface {
+	mustEmbedUnimplementedNodesCommunicationServer()
+}
+
+func RegisterNodesCommunicationServer(s *grpc.Server, srv NodesCommunicationServer) {
+	s.RegisterService(&_NodesCommunication_serviceDesc, srv)
+}
+
+func _NodesCommunication_NotifyDecision_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Decision)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NodesCommunicationServer).NotifyDecision(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/director.NodesCommunication/NotifyDecision",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NodesCommunicationServer).NotifyDecision(ctx, req.(*Decision))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _NodesCommunication_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "director.NodesCommunication",
+	HandlerType: (*NodesCommunicationServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "NotifyDecision",
+			Handler:    _NodesCommunication_NotifyDecision_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
