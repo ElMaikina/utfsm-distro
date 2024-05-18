@@ -23,7 +23,12 @@ func main() {
 	fmt.Scanln()
 	response, _ := client.ConfirmReady(context.Background(), &pb.Message{Msg: "1", ClientIp: ip})
 
-	fmt.Println("Selecciona tu arma")
+	// Da la opcion al jugador de elegir una de tres armas
+	fmt.Println("Selecciona tu arma (elige por numero)")	
+	fmt.Println(" 1) Escopeta")
+	fmt.Println(" 2) Rifle automatico")
+	fmt.Println(" 3) Punos electricos")
+
 	var gun string
 	fmt.Scanln(&gun)
 
@@ -33,29 +38,25 @@ func main() {
 		return
 	}
 
-	fmt.Println("Selecciona un pasillo")
-	var hallway_str string
-	fmt.Scanln(&hallway_str)
-	response, _ = client.PickHallway(context.Background(), &pb.Message{Msg: hallway_str, ClientIp: ip})
-	fmt.Println(response.Res)
-	if response.Res == "dead" {
-		return
-	}
-
-	fmt.Println("Selecciona un numero del 1 al 15")
-	var number string
-	fmt.Scanln(&number)
-	response, _ = client.BossBattle(context.Background(), &pb.Message{Msg: number, ClientIp: ip})
-	fmt.Println(response.Res)
-
-	if response.Res == "boss not dead" {
-		fmt.Println("Selecciona un numero del 1 al 15")
+	// El jugador puede tomar decisiones hasta morir
+	for true 
+	{
+		// Se da la opcion de tomar dos pasillos
+		fmt.Println("Selecciona un pasillo (A o B)")
+		var hallway_str string
+		fmt.Scanln(&hallway_str)
+		response, _ = client.PickHallway(context.Background(), &pb.Message{Msg: hallway_str, ClientIp: ip})
+		fmt.Println(response.Res)
+		if response.Res == "dead" {
+			return
+		}
+	
+		// Se da la opcion de elegir uno de quince pisos
+		fmt.Println("Selecciona un numero (del 1 al 15)")
 		var number string
 		fmt.Scanln(&number)
 		response, _ = client.BossBattle(context.Background(), &pb.Message{Msg: number, ClientIp: ip})
+		fmt.Println(response.Res)
 	}
-
-	fmt.Println(response.Res)
-
 	conn.Close()
 }
