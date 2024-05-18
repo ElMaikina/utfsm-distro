@@ -22,6 +22,7 @@ type server struct {
 	pb.UnimplementedDirectorCommunicationServer
 }
 
+// Funcion que revisa si todos los jugadores estan listos
 func (s *server) ConfirmReady(ctx context.Context, in *pb.Message) (*pb.Response, error) {
 	playerCounter += 1
 	if playerCounter > 8 {
@@ -30,6 +31,7 @@ func (s *server) ConfirmReady(ctx context.Context, in *pb.Message) (*pb.Response
 	return &pb.Response{Res: "ok"}, nil
 }
 
+// Funcion que calcula el porcentaje de muerte para los mercenarios en base a su arma
 func (s *server) PickGun(ctx context.Context, in *pb.Message) (*pb.Response, error) {
 	SendDecisionToNameNode(in.ClientIp, in.Msg, "1")
 	if in.Msg == "1" {
@@ -51,6 +53,7 @@ func (s *server) PickGun(ctx context.Context, in *pb.Message) (*pb.Response, err
 	return &pb.Response{Res: "next floor"}, nil
 }
 
+// Funcion que calcula el porcentaje de muerte al elegir un pasillo
 func (s *server) PickHallway(ctx context.Context, in *pb.Message) (*pb.Response, error) {
 	SendDecisionToNameNode(in.ClientIp, in.Msg, "2")
 	if in.Msg == "A" {
@@ -65,6 +68,7 @@ func (s *server) PickHallway(ctx context.Context, in *pb.Message) (*pb.Response,
 	return &pb.Response{Res: "next floor"}, nil
 }
 
+// Funcion que gestiona la batlla contra el Jefe
 func (s *server) BossBattle(ctx context.Context, in *pb.Message) (*pb.Response, error) {
 	SendDecisionToNameNode(in.ClientIp, in.Msg, "3")
 	number, _ := strconv.Atoi(in.Msg)
@@ -77,11 +81,13 @@ func (s *server) BossBattle(ctx context.Context, in *pb.Message) (*pb.Response, 
 	return &pb.Response{Res: "boss not dead"}, nil
 }
 
+// Funcion que pregunta por el presupuesto
 func (s *server) AskForAccountBalance(ctx context.Context, in *pb.Message) (*pb.Response, error) {
 	// TODO:
 	return &pb.Response{Res: ""}, nil
 }
 
+// Funcion principal
 func main() {
 	playerCounter = 0
 	fmt.Print("Starting server...\n")
@@ -89,6 +95,7 @@ func main() {
 	StartServer()
 }
 
+// Funcion que inicializa el servidor
 func StartServer() {
 	listener, err := net.Listen("tcp", ":50051")
 	if err != nil {
@@ -98,11 +105,13 @@ func StartServer() {
 	service := &server{}
 	pb.RegisterDirectorCommunicationServer(grpcServer, service)
 	log.Println("Server listening on port 50051")
+
 	if err := grpcServer.Serve(listener); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
 }
 
+// Ejecuta los tres pisos
 func PlayGame() {
 	piso1()
 	piso2()
@@ -123,21 +132,19 @@ func piso3() {
 	hp = 2
 }
 
+// Envia la informacion durante el juego hacia el NameNode
 func SendDecisionToNameNode(ip string, decision string, floor string) {
-
 	conn, err := grpc.Dial(":50052", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("failed to dial: %v", err)
 	}
 	defer conn.Close()
-
 	client := pb.NewNodesCommunicationClient(conn)
-
 	client.NotifyDecision(context.Background(), &pb.Decision{Option: decision, ClientIp: ip, Floor: floor})
-
 	conn.Close()
 }
 
+// Muestra por pantalla cada vez que muere un jugador
 func killPlayer(ip string) {
 	// TODO:
 	fmt.Println("Player " + ip + " has died.")
