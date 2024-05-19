@@ -4,41 +4,15 @@
 - Leandro Espinoza 201973563-2
 - Miguel Soto 201973623-K
 
-## Tutoriales usados:
-
-- Instalacion: https://www.youtube.com/watch?v=gbrPMv_GuQY
-- Codigo de Ejemplo: https://www.youtube.com/watch?v=BdzYdN_Zd9Q
-
 ## Dependencias
 
 ```
-go get -u google.golang.org/protobuf/reflect/protoreflect
-go get -u google.golang.org/protobuf/runtime/protoimpl
-go get -u reflect
-go get -u sync
+go get -u "github.com/rabbitmq/amqp091-go"
 ```
 
 ## Instrucciones
 
-Para ejecutar mediante _Docker_
-
-```
-cd tierra
-docker build --tag gemaestrategica .
-docker image ls
-docker run -p 8000:8000 gemaestrategica
-```
-
-Para ejecutar de manera local, primero ejecutar en un terminal desde la carpeta del proyecto lo siguiente:
-
-```
-cd tierra
-go run tierra.go
-```
-
-En otro terminal separado (partiendo en la carpeta del proyecto) ejecutar en un terminal lo siguiente:
-
-```
-cd equipo
-go run equipo.go
-```
+Para ejecutar el director, hacer _SSH_ a la siguiente IP
+´´´
+ssh dist@dist006.inf.santiago.usm.cl
+´´´

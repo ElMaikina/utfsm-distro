@@ -11,9 +11,12 @@ import (
 )
 
 func main() {
-	ip := "1"
+	// Direccion IP de la maquina
+	ipAddress := "200.1.22.237"
+	port := "50051"
+	ip := ipAddress+":"+port
 
-	conn, err := grpc.Dial("200.1.22.237:50051", grpc.WithInsecure())
+	conn, err := grpc.Dial(ip, grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("failed to dial: %v", err)
 	}
