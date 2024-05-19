@@ -13,7 +13,7 @@ import (
 func main() {
 	ip := "1"
 
-	conn, err := grpc.Dial(":50051", grpc.WithInsecure())
+	conn, err := grpc.Dial("200.1.22.237:50051", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("failed to dial: %v", err)
 	}

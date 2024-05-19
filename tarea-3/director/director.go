@@ -97,9 +97,9 @@ func main() {
 
 // Funcion que inicializa el servidor
 func StartServer() {
-	listener, err := net.Listen("tcp", ":50051")
+	listener, err := net.Listen("tcp", "200.1.22.237:50051")
 	if err != nil {
-		log.Fatalf("Error al crear servidor GRPC en la dirección %s: %s", ":50051", err)
+		log.Fatalf("Error al crear servidor GRPC en la dirección %s: %s", "200.1.22.237:50051", err)
 	}
 	grpcServer := grpc.NewServer()
 	service := &server{}
@@ -134,7 +134,7 @@ func piso3() {
 
 // Envia la informacion durante el juego hacia el NameNode
 func SendDecisionToNameNode(ip string, decision string, floor string) {
-	conn, err := grpc.Dial(":50052", grpc.WithInsecure())
+	conn, err := grpc.Dial("200.1.22.237:50052", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("failed to dial: %v", err)
 	}
