@@ -97,7 +97,11 @@ func main() {
 
 // Funcion que inicializa el servidor
 func StartServer() {
-	listener, err := net.Listen("tcp", ":50051")
+	// Direccion IP de la maquina
+	ipAddress := "172.17.0.1"
+	port := "8000"
+
+	listener, err := net.Listen("tcp", ipAddress+":"+port)
 	if err != nil {
 		log.Fatalf("Error al crear servidor GRPC en la dirección %s: %s", ":50051", err)
 	}
