@@ -15,4 +15,8 @@ go get -u "github.com/rabbitmq/amqp091-go"
 Para ejecutar el director, hacer _SSH_ a la siguiente IP
 ´´´
 ssh dist@dist006.inf.santiago.usm.cl
+cd utfsm-distro/tarea-3/director
+docker build --tag director .
+docker image ls
+docker run -p 50051:50051 director
 ´´´

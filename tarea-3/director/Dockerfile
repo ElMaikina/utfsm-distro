@@ -31,7 +31,7 @@ COPY *.go ./
 # But we can document in the Dockerfile what ports
 # the application is going to listen on by default.
 # https://docs.docker.com/reference/dockerfile/#expose
-EXPOSE 8000
+EXPOSE 50051
 
 # Run
-CMD ["go", "run", "tierra.go"]
+CMD ["go", "run", "director.go"]
