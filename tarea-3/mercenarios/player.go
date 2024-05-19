@@ -39,8 +39,7 @@ func main() {
 	}
 
 	// El jugador puede tomar decisiones hasta morir
-	for true 
-	{
+	for true {
 		// Se da la opcion de tomar dos pasillos
 		fmt.Println("Selecciona un pasillo (A o B)")
 		var hallway_str string

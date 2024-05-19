@@ -32,8 +32,7 @@ func main() {
 	}
 	
 	// El CPU puede tomar decisiones hasta morir
-	for true 
-	{
+	for true {
 		// Elige uno de dos pasillos
 		hallway := rand.Intn(2)
 		hallway_str := ""

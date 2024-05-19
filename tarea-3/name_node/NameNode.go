@@ -45,10 +45,7 @@ func SendDecisionToDataNode(ip string, decision string, floor string) {
 		log.Fatalf("failed to dial: %v", err)
 	}
 	defer conn.Close()
-
 	client := pb.NewNodesCommunicationClient(conn)
-
 	client.NotifyDecision(context.Background(), &pb.Decision{Option: decision, ClientIp: ip, Floor: floor})
-
 	conn.Close()
 }
