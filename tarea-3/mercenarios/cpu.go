@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"google.golang.org/grpc"
 	"log"
 	pb "main/proto"
@@ -54,8 +55,8 @@ func main() {
 	}
 	
 	// Se da la opcion de elegir uno de quince pisos
-	number_n := rand.Intn(15) + 1
-	number := strconv.Itoa(number_n)
+	number_n = rand.Intn(15) + 1
+	number = strconv.Itoa(number_n)
 	response, _ = client.BossBattle(context.Background(), &pb.Message{Msg: number, ClientIp: gun})
 	fmt.Println(response.Res)
 
