@@ -38,6 +38,7 @@ func main() {
 		return
 	}
 
+	// Elige uno de dos pasillos
 	fmt.Println("Selecciona un pasillo (A o B)")
 	var hallway_str string
 	fmt.Scanln(&hallway_str)

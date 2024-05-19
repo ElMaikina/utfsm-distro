@@ -31,24 +31,33 @@ func main() {
 		return
 	}
 	
-	// El CPU puede tomar decisiones hasta morir
-	for true {
-		// Elige uno de dos pasillos
-		hallway := rand.Intn(2)
-		hallway_str := ""
-		if hallway == 0 {
-			hallway_str = "A"
-		} else {
-			hallway_str = "B"
-		}
-		response, _ = client.PickHallway(context.Background(), &pb.Message{Msg: hallway_str, ClientIp: gun})
-		if response.Res == "dead" {
-			return
-		}
-		// Elige un numero en un rango de quince, el cual sera el piso elegido
-		number_n := rand.Intn(15) + 1
-		number := strconv.Itoa(number_n)
-		response, _ = client.BossBattle(context.Background(), &pb.Message{Msg: number, ClientIp: gun})
+	// Elige uno de dos pasillos
+	hallway := rand.Intn(2)
+	hallway_str := ""
+	if hallway == 0 {
+		hallway_str = "A"
+	} else {
+		hallway_str = "B"
 	}
+	response, _ = client.PickHallway(context.Background(), &pb.Message{Msg: hallway_str, ClientIp: gun})
+	if response.Res == "dead" {
+		return
+	}
+	
+	// Se da la opcion de elegir uno de quince pisos
+	number_n := rand.Intn(15) + 1
+	number := strconv.Itoa(number_n)
+	response, _ = client.BossBattle(context.Background(), &pb.Message{Msg: number, ClientIp: gun})
+	fmt.Println(response.Res)
+	if response.Res == "dead" {
+		return
+	}
+	
+	// Se da la opcion de elegir uno de quince pisos
+	number_n := rand.Intn(15) + 1
+	number := strconv.Itoa(number_n)
+	response, _ = client.BossBattle(context.Background(), &pb.Message{Msg: number, ClientIp: gun})
+	fmt.Println(response.Res)
+
 	conn.Close()
 }
