@@ -11,9 +11,9 @@ import (
 )
 
 // TODO: asignar ip correctas
-var ipDataNode_1 = "localhost:50053"
-var ipDataNode_2 = "localhost:50054"
-var ipDataNode_3 = "localhost:50055"
+var ipDataNode_1 = "200.1.22.237:50053"
+var ipDataNode_2 = "200.1.22.237:50054"
+var ipDataNode_3 = "200.1.22.237:50055"
 
 type server struct {
 	pb.UnimplementedNodesCommunicationServer
@@ -38,7 +38,7 @@ func main() {
 }
 
 func StartServer() {
-	listener, err := net.Listen("tcp", ":50052")
+	listener, err := net.Listen("tcp", "200.1.22.237:50052")
 	if err != nil {
 		log.Fatalf("Error al crear servidor GRPC en la dirección %s: %s", ":50052", err)
 	}

@@ -27,9 +27,9 @@ func main() {
 }
 
 func StartServer() {
-	listener, err := net.Listen("tcp", ":50053")
+	listener, err := net.Listen("tcp", "200.1.22.237:50053")
 	if err != nil {
-		log.Fatalf("Error al crear servidor GRPC en la dirección %s: %s", ":50053", err)
+		log.Fatalf("Error al crear servidor GRPC en la dirección %s: %s", "200.1.22.237:50053", err)
 	}
 	grpcServer := grpc.NewServer()
 	service := &server{}
