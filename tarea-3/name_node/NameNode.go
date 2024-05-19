@@ -6,8 +6,14 @@ import (
 	"google.golang.org/grpc"
 	"log"
 	pb "main/proto"
+	"math/rand"
 	"net"
 )
+
+// TODO: asignar ip correctas
+var ipDataNode_1 = "localhost:50053"
+var ipDataNode_2 = "localhost:50054"
+var ipDataNode_3 = "localhost:50055"
 
 type server struct {
 	pb.UnimplementedNodesCommunicationServer
@@ -15,7 +21,14 @@ type server struct {
 
 func (s *server) NotifyDecision(ctx context.Context, in *pb.Decision) (*pb.Response, error) {
 	fmt.Println("received data")
-	SendDecisionToDataNode(in.ClientIp, in.Option, in.Floor)
+	node := rand.Intn(3)
+	if node == 0 {
+		SendDecisionToDataNode(in.ClientIp, in.Option, in.Floor, ipDataNode_1)
+	} else if node == 1 {
+		SendDecisionToDataNode(in.ClientIp, in.Option, in.Floor, ipDataNode_2)
+	} else {
+		SendDecisionToDataNode(in.ClientIp, in.Option, in.Floor, ipDataNode_3)
+	}
 	return &pb.Response{Res: ""}, nil
 }
 
@@ -38,9 +51,9 @@ func StartServer() {
 	}
 }
 
-func SendDecisionToDataNode(ip string, decision string, floor string) {
+func SendDecisionToDataNode(ip string, decision string, floor string, ipDataNode string) {
 
-	conn, err := grpc.Dial(":50053", grpc.WithInsecure())
+	conn, err := grpc.Dial(ipDataNode, grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("failed to dial: %v", err)
 	}
